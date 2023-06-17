@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+
+{% block main_content %}
+
+    <div class="container" onmousedown='return false;' onselectstart='return false;'>
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+{% if user.student.approved %}
+    
+    {% if std_exam_info %}
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Examination</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Time</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for std_exam in std_exam_info %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ std_exam.exam_name }}</td>
+            <td>{{ std_exam.subject_name}}</td>
+            <td>{{ std_exam.total_time }}</td>
+            <td><a href="{% url 'quiz_app:quiz_view' id=std_exam.pk pk=0 %}"><button>Start Exam</button></a></td>
+        </tr>
+        
+    {% endfor %}
+        </tbody>
+    </table>
+    <a class="text-decoration-none mx-4" href="{% url 'logout' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Logout</button></a>
+    {% endif %}
+
+    {% else %}
+     <h3>To activate your account contuct with your teacher</h3>
+    {% endif %}
+
+
+</div>
+ 
+<div class="col-0 col-sm-2">
+    
+  </div>
+</div>
+</div>
+    
+   
+{% endblock main_content %}

@@ -1,0 +1,78 @@
+<aside id="left-panel" class="left-panel" style="background: black">
+    <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
+        <div id="main-menu" class="main-menu collapse navbar-collapse" style="background: black">
+            <ul class="nav navbar-nav">
+                <li style="background: black" >
+                    <a href="#"><a href="{% url 'quiz_app:teacher_dashboard'%}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></a>
+                </li>
+                <li class="menu-title" style="color: white">My Status</li><!-- /.menu-title -->
+                {% if user.teacher.approved %}
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <a href="{% url 'quiz_app:exam_info_input' %}"><i class="menu-icon fa fa-user"></i>Create Exam Info</a></a>
+                </li>
+
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <a href="{% url 'quiz_app:students_of_institution' %}"><i class="menu-icon fa fa-user"></i>Students' info</a>
+                
+                </li>
+
+
+                {% endif %}
+                {% if user.agent.active %}
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <a href="{% url 'quiz_app:add_institution' %}"><i class="menu-icon fa fa-user"></i>Add Institution</a></a>
+                </li>
+                {% endif %}
+                {% if user.is_superuser %}
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <a href="{% url 'register' %}"><i class="menu-icon fa fa-user"></i>Add Agent</a></a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <a href="{% url 'quiz_app:inst_list_filter' %}"><i class="menu-icon fa fa-user"></i>Payment Info</a></a>
+                </li>
+                {% endif %}
+
+                <!-- <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Buyer</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="#">Add</a></li>
+                        <li><i class="fa fa-th-list" style="color: darkblue"></i><a href="#">View</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tags"></i>Payment</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href='#'>Add</a></li>
+                        <li><i class="fa fa-th-list" style="color: darkblue"></i><a href="#">Payment History</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Product</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="#">Add</a></li>
+                        <li><i class="fa fa-th-list" style="color: darkblue"></i><a href="#">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-shopping-cart"></i>Order</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="#">Add</a></li>
+                        <li><i class="fa fa-th-list" style="color: darkblue"></i><a href="#">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-truck"></i>Delivery</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="#">Add</a></li>
+                        <li><i class="fa fa-th-list" style="color: darkblue"></i><a href="#">View</a></li>
+                    </ul>
+                </li> -->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>

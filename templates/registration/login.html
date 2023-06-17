@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <h1>Login</h1>
+                <p class="text-muted">Sign In to your account</p>
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="icon-user"></i>
+                      </span>
+                    </div>
+                    {% render_field form.username class="form-control" placeholder=form.username.label %}
+                    {% for error in form.username.errors %}
+                      <!-- <span class="help-block">{{ error }}</span> -->
+                      <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="icon-lock"></i>
+                      </span>
+                    </div>
+                    {% render_field form.password class="form-control" placeholder=form.password.label %}
+                    {% for error in form.password.errors %}
+                      <!-- <span class="help-block">{{ error }}</span> -->
+                      <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                  </div>
+                  <div class="row">
+
+                    <div class="col-6 text-right">
+                      <a href="{% url 'password_reset' %}"><button class="btn btn-link px-0" type="button">Forgot password?</button></a>
+                      <button class="btn btn-primary px-4" type="submit">Login</button>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

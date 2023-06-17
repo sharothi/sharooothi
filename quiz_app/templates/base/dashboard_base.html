@@ -1,0 +1,35 @@
+
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock title %}
+
+
+{% block main_content %}
+    <!-- Left Panel -->
+    {% include 'base/sidebar.html' %}
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        {% include 'base/navbar.html' %}
+
+        {% block breadcrumbs %}
+
+        {% endblock breadcrumbs %}
+        <!-- /#header -->
+        <!-- Content -->
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <!-- .animated -->
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+        <!-- Footer -->
+        {% include 'base/footer.html' %}
+        <!-- /.site-footer -->
+    </div>
+    <!-- /#right-panel -->
+{% endblock main_content %}

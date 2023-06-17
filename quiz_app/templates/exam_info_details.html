@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block main_content %}
+
+    <div class="container">
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+            
+            <h3 class="">Examination Information</h3>
+            <br />
+            <br />
+        <table>
+            <tr><td>Institution Name :</td><td>&ensp;&ensp;{{exam_info.institution_name}}</td></tr>
+            <tr><td>Exam Name :</td><td>&ensp;&ensp;{{ exam_info.exam_name }}</td></tr> 
+            <tr><td>Class :</td><td>&ensp;&ensp;{{ exam_info.class_name }}</td></tr> 
+            <tr><td>Subject :</td><td>&ensp;&ensp;{{ exam_info.subject_name }}</td></tr> 
+            <tr><td>Teacher :</td><td>&ensp;&ensp;{{ exam_info.teacher }}</td></tr> 
+            <tr><td>Marks par question :</td><td>&ensp;&ensp;{{ exam_info.par_ques_marks }}</td></tr> 
+            <tr><td>Time duration :</td><td> &ensp;&ensp;{{ exam_info.total_time }}</td></tr>
+            <tr><td>Created date :</td><td>&ensp;&ensp;{{ exam_info.created_date }}</td></tr> 
+            <tr><td>Status :</td><td> &ensp;&ensp;{{ exam_info.status }}</td></tr>
+            <tr><td>Total Qusetion added :</td><td>&ensp;&ensp;{{exam_info.exam_data.count}}</td></tr> 
+        </table>
+        <br />
+        {% if exam_info.published %}<br /> <br />
+        <h4 class="text-info">this exam is already published</h4> 
+      {% else %}
+      <a class="btn btn-warning" role="button" href="{% url 'quiz_app:exam_info_publish' pk=exam_info.pk %}">publish</a> 
+      {% endif %}
+      &ensp;&ensp;<a class="btn btn-success" role="button" href="{% url 'quiz_app:teacher_dashboard' %}">Go Dashboard</a>
+      &ensp;&ensp;<a class="btn btn-info" role="button" href="{% url 'quiz_app:exam_info_update' pk=exam_info.pk %}">update</a> &ensp; <a class="btn btn-danger" role="button" href="{% url 'quiz_app:exam_info_delete' pk=exam_info.pk %}">delete</a> 
+
+     
+
+</div>
+ 
+<div class="col-0 col-sm-2">
+    
+  </div>
+</div>
+</div>
+
+{% endblock main_content %}

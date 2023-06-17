@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+            
+            <h3 class="">Examination Information</h3>
+            <br />
+            <br />
+        <form method="POST" action="">
+                {% csrf_token %}
+
+                
+                <label for="exam_name" class="form-label">Examination Name</label>
+                {{ exam_info_form.exam_name }}
+                <P>{{ exam_info_form.exam_name.errors }}</P>
+                <!-- <input type="text" id="username" name="username" class="form-control" > -->
+                <label for="class_name" class="form-label">Class</label>
+                {{ exam_info_form.class_name }}
+                <p>{{ exam_info_form.class_name.errors }}</p>
+                <!-- <input type="text" id="email" name="email" class="form-control" > -->
+                <label for="subject_name" class="form-label">Subject Name</label>
+                {{ exam_info_form.subject_name }}
+                <p>{{ exam_info_form.subject_name.errors }}</p>
+                <!-- <input type="password" id="password1" name="password1" class="form-control" > -->
+                <label for="par_ques_marks" class="form-label">marks par question</label>
+                {{ exam_info_form.par_ques_marks }}
+                <p>{{ exam_info_form.par_ques_marks.errors }}</p>
+                <!-- <input type="password" id="password2" name="password2" class="form-control" > -->
+                <label for="total_time" class="form-label">Time duration</label>
+                {{ exam_info_form.total_time }}
+                <p>{{ exam_info_form.total_time.errors }}</p>
+
+                <label for="pay_status" class="form-label">payed or free</label>
+                {{ exam_info_form.pay_status }}
+                <p>{{ exam_info_form.pay_status.errors }}</p>
+
+
+
+                <br />
+
+        
+            <input class="btn btn-info d-inline p-2 px-3 shadow" type="submit" value="Submit">
+
+
+        </form>
+        
+
+
+        </div>
+ 
+        <div class="col-0 col-sm-2">
+            
+          </div>
+        </div>
+    </div>
+
+
+
+    {% endblock main_content %}

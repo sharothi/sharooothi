@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+            
+            <h3 class="">Check Questions</h3>
+            <br />
+            <br />
+        
+            <ol>
+                <div class="flex-container">
+                    
+                            {% for question in questions %}
+                            <div class="item">
+                            
+                            <li>{{ question.title }}</li>
+                            <br />
+                            <ol type = 'a'>
+                                {% for option in question.option.all %}
+                                <li>{{ option }} &emsp; &emsp; &emsp; {% if option.is_correct %} status : {{ option.is_correct }} {% endif %}</li>
+                                {% endfor %}
+                            </ol>
+                            
+                            <div><a class="btn btn-danger" role="button" href="{% url 'quiz_app:question_delete' pk=question.pk %}">delete</a></Button></div> 
+                            
+                            </div>
+                        {% endfor %}
+                    
+                </div>
+            </ol>
+        
+        
+    <br />
+    <div><a class="btn btn-info" role="button" href="{% url 'quiz_app:teacher_dashboard' %}">Go Dashboard</a></Button></div>
+</div>  
+<div class="col-0 col-sm-2">
+          
+</div>
+</div>
+ 
+</div>
+
+{% endblock main_content %}

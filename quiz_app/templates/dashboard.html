@@ -1,0 +1,266 @@
+{% extends 'base/dashboard_base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+    <!-- Widgets  -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(107, 107, 255)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">Total questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(78, 179, 78)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content" >
+                            <div class="text-left dib">
+                                <div class="stat-text" style="color: white"><span class="count">10</span></div>
+                                <div class="stat-heading" style="color: white">published Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(199, 72, 72)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">painding Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: orchid">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">Total Students</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Widgets -->
+    
+    <div class="clearfix"></div>
+
+    <!-- Orders -->
+    {% if user.teacher.approved %}
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Examination Information List </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Exam Name</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Total time</th>
+                                        <th>Published</th>
+                                        <th>created Date</th>
+                                        <th>Status</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if exam_info_ls %}
+                                    {% for exam_info in exam_info_ls %}
+                                    <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>
+                                        <td>{{ exam_info.exam_name }}</td>
+                                        <td>{{ exam_info.class_name }}</td>
+                                        <td>{{ exam_info.subject_name }}</td>
+                                        <td>{{ exam_info.total_time }}</td>
+                                        <td>{{ exam_info.published}}</td>
+                                        <td>{{ exam_info.created_date }}</td>
+                                        <td>{{ exam_info.status }}
+                                            <!-- {% if exam_info.status == 'pending' %}
+                                                <a class="btn btn-warning" href="">{{ exam_info.status }}</a>
+                                            {% elif exam_info.status == 'created' %}
+                                                <a class="btn btn-danger" href="">{{ exam_info.status }}</a>
+                                            {% endif %} -->
+                                        </td>
+                                        <td>
+                                            <!-- {% if exam_info.published == False %}
+                                            <button><a href="{% url 'quiz_app:exam_info_details' pk=exam_info.pk  %}">details</a></button>
+                                            {% else %}
+                                                <p>Published</p>
+                                            {% endif %} -->
+                                            <a class='btn btn-success' role='button' href="{% url 'quiz_app:data_input_form' pk=exam_info.pk  %}" >add data</a>
+                                            <a class='btn btn-info' role='button' href="{% url 'quiz_app:question_check' pk=exam_info.pk  %}">check data</a>
+                                            <a class='btn btn-warning' role='button' href="{% url 'quiz_app:exam_info_details' pk=exam_info.pk  %}">details</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr><td>No Exam Info created</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+
+    <!-- {% for teacher in institution.instite.all %}{{teacher}}<br /> {% endfor %} -->
+    {% else %}
+    
+     <h3>cuntuct with {{user.teacher.institution_name.by_agent}}</h3>
+    {% endif %}
+
+
+    {% if user.agent.active %}
+    
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Institution Information List </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Name</th>
+                                        <th>Number of Teachers</th>
+                                        <th>Number of Students</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if institutions %}
+                                    {% for institution in institutions %}
+                                    <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>
+                                        <td>{{ institution.institution_name }}</td>
+                                        <td><a class='btn btn-success' role='button' href="{% url 'quiz_app:teacher_list' pk=institution.pk %}" >{{institution.instite.all.count}}</a></td>
+                                        <td>{{institution.inst.all.count}}</td>
+                                        <td>
+                                            <a class='btn btn-success' role='button' href="{% url 'quiz_app:teacher_regis' pk=institution.pk %}" >Add teacher</a>
+                                            <a class='btn btn-info' role='button' href="#">Details</a>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr><td>No institution added</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+    {% endif %}
+    <!-- /.orders -->
+
+
+    {% if user.is_superuser %}
+    
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Agent List </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if agents %}
+                                    {% for agent in agents %}
+
+                                    <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>
+                                        <td>{{ agent.user_info.username }}</td>
+                                        <td>{{ agent.phone_number }}</td>
+
+                                        <td>{{ agent.user_info.email }}</td>
+                                        <td>
+                                            <a class='btn btn-success' role='button' href="#" >Add teacher</a>
+                                            <a class='btn btn-info' role='button' href="#">Details</a>
+
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr><td>No institution added</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+    {% endif %}
+{% endblock content %}

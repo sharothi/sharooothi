@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% block main_content %}
+
+    {% for exam_info in exam_info_ls %}
+    {{ exam_info }}
+    {% endfor %}
+    <br />
+    {{user.username}}
+
+
+
+
+{% endblock main_content %}
+

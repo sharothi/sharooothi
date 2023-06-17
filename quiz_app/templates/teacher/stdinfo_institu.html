@@ -1,0 +1,110 @@
+{% extends 'base/dashboard_base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+    <!-- /Widgets -->
+
+    
+    <div class="bg-info">
+
+            <h3 class="text-center">Students</h3>
+            <i id ='query_type' >{{ query_type }}</i>
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" id= 'all_std' href="{% url 'quiz_app:students_of_institution' %}" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="approved_std" href="{% url 'quiz_app:std_approved_list' %}" role="tab" aria-controls="pills-profile" aria-selected="false">Approved</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="not_approved_std" href="{% url 'quiz_app:std_not_approved_list' %}" role="tab" aria-controls="pills-contact" aria-selected="false">Not Approved</a>
+                </li>
+              </ul>
+        </div>
+      
+    
+    <div class="clearfix"></div>
+
+    <!-- Orders -->
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Students Information List </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>UserName</th>
+                                        <!-- <th>Name</th> -->
+                                        <th>Email</th>
+                                        <th>Bkash Num.</th>
+                                        <th>Approved</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                        {% if students %}
+                                        {% for obj in students %}
+                                    <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>
+                                        <td>{{ obj.user_info.username }}</td>
+                                        <!-- <td>{{ obj.user_info.first_name }} {{ obj.user_info.last_name }}</td> -->
+                                        <td>{{ obj.user_info.email }}</td>
+                                        <td>{{ obj.stu_pay_info.last.phone_number }}</td>
+                                        <td>{{ obj.approved }}</td>
+                                        
+
+                                        <td>
+                                            {% if obj.approved %}
+                                                Approved
+                                            {% else %}
+                                                <a class="btn btn-warning" role="button" href="{% url 'quiz_app:stud_activat' pk=obj.pk %}">Approve</a>
+                                            {% endif %}
+                                        </td>
+ 
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr><td>No students available</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+    <!-- /.orders -->
+
+    <script>
+        const get_query_type = document.getElementById('query_type').innerText
+
+        switch(get_query_type) {
+            case 'approved':
+                // code block
+                document.getElementById('approved_std').classList.add('active')
+                break;
+            case 'not_approved':
+                // code block
+                document.getElementById('not_approved_std').classList.add('active')
+                break;
+            default:
+                document.getElementById('all_std').classList.add('active')
+}
+
+    </script>
+{% endblock content %}
+

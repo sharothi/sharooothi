@@ -1,0 +1,152 @@
+{% extends 'base/dashboard_base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+    <!-- Widgets  -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(107, 107, 255)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">Total questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(78, 179, 78)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content" >
+                            <div class="text-left dib">
+                                <div class="stat-text" style="color: white"><span class="count">10</span></div>
+                                <div class="stat-heading" style="color: white">published Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: rgb(199, 72, 72)">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">painding Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body" style="background-color: orchid">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count" style="color: white">10</span></div>
+                                <div class="stat-heading" style="color: white">Total Students</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Widgets -->
+    
+    <div class="clearfix"></div>
+
+    <!-- Orders -->
+    {% if user.teacher.approved %}
+    <div class="orders">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Examination Information List </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats order-table ov-h">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>User Name</th>
+                                        <th>Roll No</th>
+                                        <th>Correct Ans</th>
+                                        <th>Total time</th>
+                                        <th>Marks</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if top_result %}
+                                    <tr class="bg-warning">
+                                        <td class="serial text-white">winer</td>
+                                        <td class="text-white">{{ top_result.user_info.user_info.username }}</td>
+                                        <td class="text-white">{{ top_result.user_info.roll_num }}</td>
+                                        <td class="text-white">{{ top_result.num_of_correct_ans }}</td>
+                                        <td class="text-white">{{ top_result.time_delta }}</td>
+                                        <td class="text-white">{{ top_result.result }}</td>
+                                    </tr>
+                                    
+                                    {% endif %}
+
+                                    {% if results %}
+                                    {% for result in results %}
+                                    <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>
+                                        <td>{{ result.user_info.user_info.username }}</td>
+                                        <td>{{ result.user_info.roll_num }}</td>
+                                        <td>{{ result.num_of_correct_ans }}</td>
+                                        <td>{{ result.time_delta }}</td>
+                                        <td>{{ result.result }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr><td>No Result</td></tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-stats -->
+                    </div>
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+
+            
+        </div>
+    </div>
+
+    {% endif %}
+
+
+    
+
+
+   
+{% endblock content %}

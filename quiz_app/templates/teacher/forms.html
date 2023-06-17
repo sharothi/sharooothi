@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block main_content %}
+    <div class="center">
+        {% if message %}
+           <h3>{{message}}</h3> 
+        {% endif %}
+        {{ number_of_questions.count | add:1 }} .No Questions <br /> 
+        <form method="POST" >
+            {% csrf_token %}
+            {{quiz_form.as_p}}
+            <ol id = "options_group">
+                <li class="copy_node">
+                        <label for="id_option_title">Option title</label>
+                        <input type="text" name="option_title" id="id_option_title"><br />
+                        <label for="id_is_correct">is_correct :</label><br />
+                        <input type="radio" class="correct" name="is_correct_0" value="True">
+                        <label for="html">True</label><br>
+                        <input type="radio" class="wrong" name="is_correct_0" value="False">
+                        <label for="css">False</label><br>
+                </li>
+                <li class="copy_node">
+                        <label for="id_option_title">Option title</label>
+                        <input type="text" name="option_title" id="id_option_title"><br />
+                        <label for="id_is_correct">is_correct :</label><br />
+                        <input type="radio" class="correct" name="is_correct_1" value="True">
+                        <label for="html">True</label><br>
+                        <input type="radio" class="wrong" name="is_correct_1" value="False">
+                        <label for="css">False</label><br>
+                </li>
+                <li class="copy_node">
+                        <label for="id_option_title">Option title</label>
+                        <input type="text" name="option_title" id="id_option_title"><br />
+                        <label for="id_is_correct">is_correct :</label><br />
+                        <input type="radio" class="correct" name="is_correct_2" value="True">
+                        <label for="html">True</label><br>
+                        <input type="radio" class="wrong" name="is_correct_2" value="False">
+                        <label for="css">False</label><br>
+                </li>
+                <li class="copy_node">
+                        <label for="id_option_title">Option title</label>
+                        <input type="text" name="option_title" id="id_option_title"><br />
+                        <label for="id_is_correct">is_correct :</label><br />
+                        <input type="radio" class="correct" name="is_correct_3" value="True">
+                        <label for="html">True</label><br>
+                        <input type="radio" class="wrong" name="is_correct_3" value="False">
+                        <label for="css">False</label><br>
+                </li>
+               {# <button  id="id_button" type="button" onclick="getInputItem(this)" >+</button><br /><br /> #} 
+            </ol>
+            
+            <button class='btn btn-info dash'  type="submit" value="submit">Submit</button>  <a class='btn btn-info dash' role='button' href="{% url 'quiz_app:teacher_dashboard' %}">Go Dashboard</a>
+        </form>
+    </div> 
+
+    <!-- <script>
+        let parent = document.querySelector("#options_group");
+        let input_node = document.querySelector(".copy_node");
+        let button = document.querySelector("#id_button");
+        
+        function getInputItem(e){
+
+            if(e.previousSibling.tagName == 'LI') {
+                // console.log('1' ,e.previousSibling)
+                let i = parseInt(e.previousSibling.querySelector('.wrong').name.slice(-1));
+                let input_node = e.previousSibling;
+                var cln = input_node.cloneNode(true);
+                // console.log('1',cln)
+                let radio_button_wrong = cln.querySelector('.wrong');
+                let radio_button_correct = cln.querySelector('.correct');
+                radio_button_correct.name = `is_correct_${i+1}`;
+                radio_button_wrong.name = `is_correct_${i+1}`;
+            } else if (e.previousSibling.previousSibling.tagName == 'LI'){
+                // console.log('2', e.previousSibling.previousSibling, typeof e.previousSibling.previousSibling)
+                let i = parseInt(e.previousSibling.previousSibling.querySelector('.wrong').name.slice(-1));
+                let input_node = e.previousSibling.previousSibling;
+                var cln = input_node.cloneNode(true)
+                // console.log('2',cln)
+                let radio_button_wrong = cln.querySelector('.wrong');
+                let radio_button_correct = cln.querySelector('.correct');
+                radio_button_correct.name = `is_correct_${i+1}`;
+                radio_button_wrong.name = `is_correct_${i+1}`;
+
+            } 
+            
+            parent.insertBefore(cln, e);
+        }
+
+    </script> -->
+
+
+
+{% endblock main_content %}

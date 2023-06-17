@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/my-style.css' %}" rel="stylesheet">
+</head>
+<body class="bg-light">
+    
+    <div class="container" onmousedown='return false;' onselectstart='return false;'>
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+{% if user.student %}
+    {% if message %}
+    <h3>{{ message }}</h3><br><br>
+    
+    <a class="text-decoration-none mx-4" href="{% url 'logout' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Logout</button></a>
+    {% endif %}
+    {% if std_exam_info %}
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Examination</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Time</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for std_exam in std_exam_info %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ std_exam.exam_name }}</td>
+            <td>{{ std_exam.subject_name}}</td>
+            <td>{{ std_exam.total_time }}</td>
+            {% if std_exam.done %}
+                <td><a href="{% url 'quiz_app:re_exam' pk=std_exam.pk %}"><button class="btn btn-info success ml">Re Exam</button></a> <a href="{% url 'quiz_app:quiz_view' id=std_exam.pk pk=0 %}"><button class="btn btn-info success">See Reasult</button></a></td>
+            {% else %}
+                <td><a href="{% url 'quiz_app:quiz_view' id=std_exam.pk pk=0 %}"><button class="btn btn-info success">Start Exam</button></a></td>
+            {% endif %}
+        </tr>
+        
+    {% endfor %}
+        </tbody>
+    </table>
+        {% if not user.student.approved %}
+            <a class="text-decoration-none mx-4" href="{% url 'quiz_app:get_paid_account' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Get paid accout</button></a>
+        {% endif %}
+    <a class="text-decoration-none mx-4" href="{% url 'logout' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Logout</button></a>
+    {% endif %}
+
+    {% endif %}
+
+
+    {% if after_payment_message %}
+
+      <h3>{{ activation_message|safe }}</h3>
+      <h3>{{ after_payment_message|safe }}</h3>
+
+      <br /> <br />
+
+     <!--{#  <a class="text-decoration-none mx-4" href="{% url 'quiz_app:subject_list_view' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Back</button></a> #} -->
+     <a class="text-decoration-none mx-4" href="{% url 'logout' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Logout</button></a>
+    {% endif %}
+    
+
+</div>
+ 
+<div class="col-0 col-sm-2">
+    
+  </div>
+</div>
+</div>
+    
+
+{% include 'base/other_footer.html' %}
+   
+</body>
+</html>
+
+<!-- filter(exam_done=True,user_info=request.user.student) -->

@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% block main_content %}
+
+    <div class="container">
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+            
+            <h3 class="">Registration</h3>
+            <br />
+            <br />
+        <form method="POST" action="">
+                {% csrf_token %}
+
+                <label for="username" class="form-label">UserName</label>
+                {{ form.username }}
+                <P>{{ form.username.errors }}</P>          
+                <label for="first_name" class="form-label">First Name</label>
+                {{ form.first_name }}
+                <P>{{ form.first_name.errors }}</P>
+                <label for="last_name" class="form-label">Last Name</label>
+                {{ form.last_name }}
+                <P>{{ form.last_name.errors }}</P>
+                <!-- <input type="text" id="username" name="username" class="form-control" > -->
+                <label for="email" class="form-label">Email</label>
+                {{ form.email }}
+                <p>{{ form.email.errors }}</p>
+                <!-- <input type="text" id="email" name="email" class="form-control" > -->
+                <label for="password1" class="form-label">Password</label>
+                {{ form.password1 }}
+                <p>{{ form.password1.errors }}</p>
+                <!-- <input type="password" id="password1" name="password1" class="form-control" > -->
+                <label for="password2" class="form-label">Confirm password</label>
+                {{ form.password2 }}
+                <p>{{ form.password2.errors }}</p>
+                <!-- <input type="password" id="password2" name="password2" class="form-control" > -->
+                <label for="phone_number" class="form-label">Phone Number</label>
+                {{ agent_form.phone_number }}
+                <p>{{ agent_form.phone_number.errors }}</p>
+        
+            <input class="btn btn-info d-inline p-2 px-3 shadow" type="submit" value="Submit">
+
+
+        </form>
+        
+
+
+        </div>
+ 
+        <div class="col-0 col-sm-2">
+            
+          </div>
+        </div>
+    </div>
+
+
+{% endblock main_content %}
+

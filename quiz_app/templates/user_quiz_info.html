@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .flex-container {
+            width:100%;
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            width: 300px;
+            background-color: rgb(240, 190, 190);
+            justify-content: space-around;
+            margin-left: 4px;
+            margin-top: 4px;
+            padding-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        .item p {
+            margin-left: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-info">
+    <h3 class="text-center">{{ user.teacher.institution_name }}</h3>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+    </form>
+    </div>
+    <div class="flex-container">
+        
+            {% for obj in filter.qs %}
+        
+    <div class='item'>
+        
+        <p>username : {{ obj.user_info.user_info.username }}</p> 
+        <p>name : {{ obj.user_info.user_info.first_name }} {{ obj.user_info.user_info.last_name }} </p>
+        <p>email : {{ obj.user_info.user_info.email }}</p>
+        <p>emanination : {{ obj.examination_info }}</p>
+        <p>Institution : {{ obj.examination_info.institution_name }}</p>
+        <p>subject : {{ obj.examination_info.subject_name }}</p>
+        <p>number of correct ans: {{ obj.num_of_correct_ans }}</p>
+        <P>score: {{obj.num_of_correct_ans | multi}}</P>
+        <P>time : {{ obj.time_delta }}</P>
+    </div>
+    
+    {% endfor %}
+</div>
+</body>
+</html>

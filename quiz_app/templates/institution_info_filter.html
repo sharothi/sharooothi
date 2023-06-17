@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .flex-container {
+            width:100%;
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            width: 300px;
+            background-color: rgb(240, 190, 190);
+            justify-content: space-around;
+            margin-left: 4px;
+            margin-top: 4px;
+            padding-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        .item p {
+            margin-left: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-info">
+    <h3 class="text-center">Institutions</h3>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+    </form>
+    </div>
+    <div class="flex-container">
+        
+            {% for obj in filter.qs %}
+        
+    <div class='item'>
+        
+        <p>institution name : {{ obj.institution_name }}</p> 
+        <p>Address : {{ obj.institution_address }} </p>
+        <p>Agent : {{ obj.by_agent }}</p>
+        <p>Created Date : {{ obj.insti.all.last.created_date }}</p>
+        <p>Payment Status : {{ obj.insti.all.last.payment_status }}</p>
+        {% if obj.insti.all.last.payment_date %}
+        <p>Payment Status : {{ obj.insti.all.last.payment_date }}</p>
+        {% endif %}
+        <a class="btn btn-info" href="{% url 'quiz_app:make_payment' pk=obj.insti.all.last.pk %}">payment done</a>
+     
+    </div>
+    
+    {% endfor %}
+</div>
+</body>
+</html>

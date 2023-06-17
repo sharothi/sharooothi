@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/my-style.css' %}" rel="stylesheet">
+    <title>Result</title>
+</head>
+<body class="bg-light">
+    <div class="container" onmousedown='return false;' onselectstart='return false;'>
+        <div class="row">
+          <div class="col-0 col-sm-2">
+          
+          </div>
+          <div class="col-12 col-sm-8 bg-white shadow rounded-3 p-5 mt-5">
+            {% if quiz %}
+            <div id="demo" class="text-end"></div>
+            <div id='start_time' class="d-none">{{ last_user_user_quiz_start_time|date:'r' }}</div>
+            {% endif %}
+        {% if quiz %}
+        <h3>Question: &emsp; {{quiz.title}}</h3>
+        {% else %}
+        <h1>
+            Your Exam Result
+        </h1>
+        <br />
+
+        <p>Username : {{ request.user.username }}</p>
+
+        <p>Name : {{ request.user.first_name }}</p>
+        {{request.user.student.userquizinfo.last}}
+            <p>Exam : {{result_info.examination_info}}</p>
+            <p>Number of correct answer : {{ result_info.num_of_correct_ans }} </p>
+            <p>Your score is : {{ result_info.result }}</p>
+            <p>Start time : {{ result_info.start_time}}</p>
+            <p>End time : {{ result_info.end_time }}</p>
+            <p>Time delta : {{ result_info.time_delta }}</p>
+
+            
+            <br />
+            <a class="text-decoration-none mx-4" href="{% url 'quiz_app:exam_list' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Exam List</button></a>
+            <a class="text-decoration-none mx-4" href="{% url 'logout' %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Logout</button></a>
+            <a class="text-decoration-none mx-4" href="{% url 'quiz_app:result_view' pk=result_info.examination_info.pk %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Score Board</button></a>
+            <a class="text-decoration-none mx-4" href="{% url 'quiz_app:exam_status_view' pk=result_info.pk %}" ><button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Your Status</button></a>
+        {% endif %}
+            <br />
+            <br />
+
+            <!-- {% if quiz %}
+            <button class="btn btn-info float-md-end shadow px-3 mb-5 mb-md-1" type="button" onclick="showHints()">Hints</button>
+            <br />
+            {% endif %} -->
+
+            <form method="post" id="sub_form">
+                {% csrf_token %}
+
+            {% for option in options %}
+            <ul style="list-style-type:none;">
+                <li>
+                    <input type="checkbox" name="{{ option.title }}" id=""> &emsp; {{option.title}}</li>
+            </ul>
+            {% endfor %}
+
+            {% if error %}
+            <span class="h1 text-danger"> {{ error }} </span> 
+            {% endif %}
+
+            {% if correct %}
+                <span class="h1 text-success">{{ correct }}</span>
+            {% endif %}
+            <br />
+            <br />
+            {% if quiz %}
+            <input class="btn btn-info d-inline p-2 px-3 shadow" id="sub_button" type="submit" value="Submit">
+            {% endif %}
+
+ 
+            {% if quiz %}
+            <a class="text-decoration-none mx-4" href="{% url 'quiz_app:quiz_view' id=quiz.exam_info.pk pk=next_pk  %}" >
+            <!-- <button type="button" class="d-inline p-2 px-4 shadow btn btn-info">Next</button> -->
+            </a>
+            {% endif %}
+            
+
+        </form>
+        <br />        
+            <span id="hints" style="display: none;"><span class="h5">Hints : </span> {{ quiz.hints }}</span>
+        <br />
+
+
+
+        </div>
+ 
+        <div class="col-0 col-sm-2">
+            
+          </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+        const tick = document.getElementById('demo');
+        const start_time = new Date(document.getElementById('start_time').innerHTML);
+        const form = document.getElementById('sub_form')
+        const sub_button = document.getElementById('sub_button')
+
+        setInterval(() => {
+            now = new Date()
+            let number = parseInt((now-start_time)/1000) ;
+            let hour = parseInt(number/3600);
+            let munit = parseInt(number/60) - parseInt(hour*60);
+            let seco = number - (hour*3600 + munit*60);
+            // let hour = parseInt(number/3600)
+            // console.log('hello');
+            tick.innerHTML = `<h4>${hour}:${munit}:${seco}<h4>`;
+            // tick.innerHTML = now-start_time ;
+            // number +=1;
+            // console.log(number)
+        }, 1000);
+
+        form.addEventListener('submit', function() {
+
+            // Disable the submit button
+            sub_button.setAttribute('disabled', 'disabled');
+
+            // Change the "Submit" text
+            sub_button.value = 'Please wait...';
+         
+        }, false);
+
+
+        
+
+    </script>
+    {% include 'base/other_footer.html' %}
+</body>
+</html>
